@@ -1,0 +1,44 @@
+version: '3.5'
+
+services:
+  timescaledb:
+    container_name: timescaledb
+    image: timescale/timescaledb:2.5.0-pg13
+    ports:
+      - "127.0.0.1:5435:5432"
+    environment:
+      - POSTGRES_PASSWORD=hakabdoanoij312332123123maaamamaa
+    volumes:
+      - .pgdata:/var/lib/postgresql/data/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  chainlink:
+     container_name: chainlink
+     image: "smartcontract/chainlink:1.3.0"
+     command: local n -p EJk47oa43BmOoHVSYURRgaa937b98ad7f953cca2dfc8ec1df146a015ec108 -p /chainlink/.password -a /chainlink/.api
+     volumes:
+       - "/home/<user_here>/.chainlink-rinkeby:/chainlink"
+     env_file: "/home/<user_here>/.chainlink-rinkeby/.env"
+     ports:
+       - "127.0.0.1:6688:6688"
+  lily_adapter:
+     container_name: lily-adapter
+     image: lily-adapter:2.1.30
+     env_file: "/home/<user_here>/.env-adapters"
+     ports:
+       - "127.0.0.1:8081:8080"
+  lotus_adapter:
+     container_name: lotus-adapter
+     image: lotus-adapter:2.1.30
+     env_file: "/home/<user_here>/.env-adapters"
+     ports:
+       - "127.0.0.1:8082:8080"
+  lotus_msig_adapter:
+     container_name: lotus-msig-adapter
+     image: lotus-msig-adapter:2.1.30
+     env_file: "/home/<user_here>/.env-adapters"
+     ports:
+       - "127.0.0.1:8083:8080"

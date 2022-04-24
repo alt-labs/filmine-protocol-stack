@@ -1,0 +1,21 @@
+[Unit]
+Description=Lily Daemon
+After=network-online.target
+Requires=network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/lily daemon --genesis=/home/<user_here>/lotus/altnet.car --bootstrap=false --config=/home/<user_here>>/.lily/config.toml
+Environment=GOLOG_LOG_LEVEL="debug"
+Restart=always
+RestartSec=10
+
+User=<user_here>
+Group=<user_here>
+
+MemoryAccounting=true
+MemoryHigh=8G
+MemoryMax=20G
+LimitNOFILE=8192:10240
+
+[Install]
+WantedBy=multi-user.target
