@@ -54,4 +54,23 @@ yarn setup
 docker-compose -f docker-compose.generated.yaml build lotus-adapter
 docker-compose -f docker-compose.generated.yaml build lotus-msig-adapter
 ```
-## Run the resto f the services
+## Run the rest of the services (chainlink + adapters)
+
+replace the ETH client URL with your own
+```ini
+ROOT=/chainlink
+LOG_LEVEL=debug
+ETH_CHAIN_ID=4
+CHAINLINK_TLS_PORT=0
+SECURE_COOKIES=false
+ALLOW_ORIGINS=*
+DATABASE_URL=postgres://postgres:hakabdoanoij312332123123maaamamaa@timescaledb:5432/chainlinkovan?sslmode=disable
+ETH_URL=<ETH_CLIENT_WEBSOCKET_URL_HERE>
+CHAINLINK_DEV=true
+```
+and put into `~/.chainlink-rinkeby/.env`
+
+
+```
+docker-compose up -d
+```
